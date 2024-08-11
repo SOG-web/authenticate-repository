@@ -35,14 +35,27 @@ export interface JWTOptions {
 	user: Record<string, any>;
 }
 
+export interface CreatedToken {
+	token: string | null;
+	expiresAt: string | null;
+	status: boolean;
+	error: any;
+}
+
+export interface VerifiedToken {
+	decoded: Record<string, any> | null;
+	status: boolean;
+	error: any;
+}
+
 export interface User extends UserAttributes {
 	id: UserId;
 }
 
 export class Authora<
 	_SessionAttributes extends {} = Record<never, never>,
-	_UserAttributes extends {} = Record<never, never>,
-	_JWTTokens extends {} = Record<never, never>
+	_UserAttributes extends {} = Record<never, never>
+	// _JWTTokens extends {} = Record<never, never>
 > {
 	private adapter: Adapter | null;
 	private sessionExpiresIn: TimeSpan | null;
@@ -59,9 +72,9 @@ export class Authora<
 		databaseUserAttributes: RegisteredDatabaseUserAttributes
 	) => _UserAttributes;
 
-	public createJWTToken: (options?: SignOptions, user?: Record<string, any>) => _JWTTokens;
+	public createJWTToken: (options?: SignOptions, user?: Record<string, any>) => CreatedToken;
 
-	public verifyJWTToken: (token?: string, secret?: string) => _JWTTokens;
+	public verifyJWTToken: (token?: string, secret?: string) => VerifiedToken;
 
 	public readonly sessionCookieName: string;
 
@@ -101,36 +114,50 @@ export class Authora<
 			return {};
 		};
 
-		this.createJWTToken = (options?: SignOptions, user?: Record<string, any>): any => {
+		this.createJWTToken = (options?: SignOptions, user?: Record<string, any>): CreatedToken => {
 			try {
 				if (this.useJWT && this.jwtSecret) {
 					if (options && user) {
 						const token = sign(user, this.jwtSecret, options);
 						return {
 							token,
-							expiresAt: options.expiresIn
+							expiresAt: options.expiresIn,
+							status: true,
+							error: null
 						};
 					}
 					if (this.jwtOptions) {
 						const token = sign(this.jwtOptions.user, this.jwtSecret, this.jwtOptions.signOptions);
 						return {
 							token,
-							expiresAt: this.jwtOptions.signOptions.expiresIn
+							expiresAt: this.jwtOptions.signOptions.expiresIn,
+							status: true,
+							error: null
 						};
 					}
 				}
-				throw new Error("Creating Token Failed.");
+				return {
+					token: null,
+					expiresAt: null,
+					status: false,
+					error: "JWT is not enabled"
+				};
 			} catch (error) {
-				throw new Error("Creating Token Failed.");
+				return {
+					token: null,
+					expiresAt: null,
+					status: false,
+					error
+				};
 			}
 		};
 
-		this.verifyJWTToken = (token?: string, secret?: string): any => {
+		this.verifyJWTToken = (token?: string, secret?: string): VerifiedToken => {
 			try {
 				if (this.useJWT && this.jwtSecret) {
 					if (token && secret) {
 						const decoded = verify(token, secret);
-						return decoded;
+						return { decoded, status: true, error: null };
 					}
 					if (this.jwtOptions) {
 						const decoded = verify(
@@ -138,12 +165,12 @@ export class Authora<
 							this.jwtSecret,
 							this.jwtOptions.verifyOptions
 						);
-						return decoded;
+						return { decoded, status: true, error: null };
 					}
 				}
-				throw new Error("Verifying Token Failed.");
+				return { decoded: null, status: false, error: "JWT is not enabled" };
 			} catch (error) {
-				throw new Error("Verifying Token Failed.");
+				return { decoded: null, status: false, error };
 			}
 		};
 
