@@ -1,6 +1,6 @@
 {
 	"name": "authora-repository",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Authentication made simple and clean",
 	"scripts": {
 		"publish-setup": "pnpm i --no-frozen-lockfile && cd packages/authora",

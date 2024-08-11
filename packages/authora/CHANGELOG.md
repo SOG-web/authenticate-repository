@@ -1,5 +1,12 @@
 # authora
 
+## 1.0.2
+
+### Patch changes
+-  Fix: Added error handling for jwt token
+
+### No changes
+
 ## 1.0.1
 
 ### No changes
