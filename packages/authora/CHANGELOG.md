@@ -1,5 +1,15 @@
 # authora
 
+## 1.0.3
+
+### No changes
+-  Fix: Added documentation (to be completed soon)
+
+## 1.0.2
+
+### Patch changes
+-  Fix: Added error handling for jwt token
+
 ## 1.0.2
 
 ### Patch changes
