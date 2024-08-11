@@ -1,0 +1,7 @@
+{
+	"repository": "https://github.com/SOG-web/authenticate-repository",
+	"scripts": {
+		"format": "pnpm format"
+	},
+	"debug": true
+}
