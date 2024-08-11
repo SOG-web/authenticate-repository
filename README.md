@@ -18,7 +18,8 @@ const session = await Authora.createSession(userId, {});
 await Authora.validateSession(session.id);
 ```
 
-Authora is an open source library released under the MIT license, with the help of [100+ contributors](https://github.com/Authora-auth/Authora/graphs/contributors)!
+Authora is an open source library released under the MIT license
+(https://github.com/Authora-auth/authora/graphs/contributors)!
 
 ## Resources
 
