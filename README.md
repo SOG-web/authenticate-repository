@@ -2,7 +2,7 @@
 
 Authora is an auth library written in TypeScript that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend.
 
-# Documentation not yet completed for this package so please proceed with caution.
+# Documentation not yet completed for this package so please proceed with caution. also still under testing
 
 -   No more endless configuration and callbacks
 -   Fully typed
@@ -10,7 +10,7 @@ Authora is an auth library written in TypeScript that abstracts away the complex
 -   Extensive database support out of the box
 
 ```ts
-import { Authora } from "Authora";
+import { Authora } from "authora";
 
 const Authora = new Authora(new Adapter(db));
 
