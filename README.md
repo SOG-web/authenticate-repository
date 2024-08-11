@@ -19,7 +19,6 @@ await Authora.validateSession(session.id);
 ```
 
 Authora is an open source library released under the MIT license
-(https://github.com/Authora-auth/authora/graphs/contributors)!
 
 ## Resources
 
