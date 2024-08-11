@@ -4,7 +4,7 @@ An open source auth library that abstracts away the complexity of handling sessi
 
 **[Documentation](https://v3.Authora-auth.com)**
 
-**[Changelog](https://github.com/pilcrowOnPaper/Authora/blob/main/packages/Authora/CHANGELOG.md)**
+**[Changelog](https://github.com/SOG-web/authora-repository/blob/main/packages/authora/CHANGELOG.md)**
 
 ## Installation
 

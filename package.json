@@ -1,7 +1,7 @@
 {
 	"name": "authenticate-repository",
 	"version": "1.0.0",
-	"description": "Authentication, simple and clean",
+	"description": "Authentication made simple and clean",
 	"scripts": {
 		"publish-setup": "pnpm i --no-frozen-lockfile && cd packages/authora",
 		"format": "pnpm exec prettier --write . --plugin=prettier-plugin-astro",
@@ -12,7 +12,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/SOG-web/authenticate-repository"
+		"url": "https://github.com/SOG-web/authora-repository"
 	},
 	"keywords": [],
 	"author": "SOG-web",
