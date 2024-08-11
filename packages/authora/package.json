@@ -1,6 +1,6 @@
 {
-	"name": "authenticate",
-	"version": "3.2.0",
+	"name": "authora",
+	"version": "1.0.0",
 	"description": "A simple and flexible authentication library",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -17,15 +17,17 @@
 		"test.debug": "vitest run src/utils/debug.test.ts"
 	},
 	"keywords": [
+		"authora",
 		"authenticate",
-		"lucia-jwt",
+		"authora-jwt",
 		"authentication",
-		"auth"
+		"auth",
+		"jwt"
 	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/SOG-web/authenticate-repository",
-		"directory": "packages/authenticate"
+		"directory": "packages/authora"
 	},
 	"author": "SOG-web",
 	"license": "MIT",

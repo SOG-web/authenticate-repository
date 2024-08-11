@@ -1,4 +1,4 @@
-export { Lucia } from "./core.js";
+export { Authora } from "./core.js";
 export { Scrypt, LegacyScrypt, generateId, generateIdFromEntropySize } from "./crypto.js";
 export { TimeSpan } from "oslo";
 export { Cookie } from "oslo/cookie";
@@ -14,7 +14,7 @@ export type { DatabaseSession, DatabaseUser, Adapter } from "./database.js";
 export type { PasswordHashingAlgorithm } from "./crypto.js";
 export type { CookieAttributes } from "oslo/cookie";
 
-import type { Lucia } from "./core.js";
+import type { Authora } from "./core.js";
 
 export type { JWTOptions } from "./core.js";
 
@@ -26,13 +26,13 @@ export type UserId = Register extends {
 	? _UserId
 	: string;
 
-export type RegisteredLucia = Register extends {
-	Lucia: infer _Lucia;
+export type RegisteredAuthora = Register extends {
+	Authora: infer _Authora;
 }
-	? _Lucia extends Lucia<any, any>
-		? _Lucia
-		: Lucia
-	: Lucia;
+	? _Authora extends Authora<any, any>
+		? _Authora
+		: Authora
+	: Authora;
 
 export type RegisteredDatabaseUserAttributes = Register extends {
 	DatabaseUserAttributes: infer _DatabaseUserAttributes;

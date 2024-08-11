@@ -1,6 +1,6 @@
-# Lucia
+# authora
 
-Lucia is an auth library written in TypeScript that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend.
+Authora is an auth library written in TypeScript that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend.
 
 -   No more endless configuration and callbacks
 -   Fully typed
@@ -8,30 +8,28 @@ Lucia is an auth library written in TypeScript that abstracts away the complexit
 -   Extensive database support out of the box
 
 ```ts
-import { Lucia } from "lucia";
+import { Authora } from "Authora";
 
-const lucia = new Lucia(new Adapter(db));
+const Authora = new Authora(new Adapter(db));
 
-const session = await lucia.createSession(userId, {});
-await lucia.validateSession(session.id);
+const session = await Authora.createSession(userId, {});
+await Authora.validateSession(session.id);
 ```
 
-Lucia is an open source library released under the MIT license, with the help of [100+ contributors](https://github.com/lucia-auth/lucia/graphs/contributors)!
+Authora is an open source library released under the MIT license, with the help of [100+ contributors](https://github.com/Authora-auth/Authora/graphs/contributors)!
 
 ## Resources
 
-**[Documentation](https://lucia-auth.com)**
+**[Documentation](https://authora.com)**
 
-**[Join the Discord server!](https://discord.gg/PwrK3kpVR3)**
+**[Examples](https://github.com/Authora-auth/examples)**
 
-**[Examples](https://github.com/lucia-auth/examples)**
-
-**[Changelog](https://github.com/pilcrowOnPaper/lucia/blob/main/packages/lucia/CHANGELOG.md)**
+**[Changelog](https://github.com/SOG-web/authenticate-repository/blob/main/packages/Authora/CHANGELOG.md)**
 
 ## Installation
 
 ```
-npm i lucia
-pnpm add lucia
-yarn add lucia
+npm i authora
+pnpm add authora
+yarn add authora
 ```

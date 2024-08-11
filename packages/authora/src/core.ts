@@ -7,17 +7,17 @@ import type { Adapter } from "./database.js";
 import type {
 	RegisteredDatabaseSessionAttributes,
 	RegisteredDatabaseUserAttributes,
-	RegisteredLucia,
+	RegisteredAuthora,
 	UserId
 } from "./index.js";
 import { CookieAttributes } from "oslo/cookie";
 import { generateIdFromEntropySize } from "./crypto.js";
 
-type SessionAttributes = RegisteredLucia extends Lucia<infer _SessionAttributes, any>
+type SessionAttributes = RegisteredAuthora extends Authora<infer _SessionAttributes, any>
 	? _SessionAttributes
 	: {};
 
-type UserAttributes = RegisteredLucia extends Lucia<any, infer _UserAttributes>
+type UserAttributes = RegisteredAuthora extends Authora<any, infer _UserAttributes>
 	? _UserAttributes
 	: {};
 
@@ -39,7 +39,7 @@ export interface User extends UserAttributes {
 	id: UserId;
 }
 
-export class Lucia<
+export class Authora<
 	_SessionAttributes extends {} = Record<never, never>,
 	_UserAttributes extends {} = Record<never, never>,
 	_JWTTokens extends {} = Record<never, never>
