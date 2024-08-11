@@ -16,7 +16,7 @@ export type { CookieAttributes } from "oslo/cookie";
 
 import type { Authora } from "./core.js";
 
-export type { JWTOptions } from "./core.js";
+export type { JWTOptions, CreatedToken, VerifiedToken } from "./core.js";
 
 export interface Register {}
 

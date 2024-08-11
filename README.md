@@ -2,6 +2,8 @@
 
 Authora is an auth library written in TypeScript that abstracts away the complexity of handling sessions. It works alongside your database to provide an API that's easy to use, understand, and extend.
 
+# Documentation not yet completed for this package so please proceed with caution.
+
 -   No more endless configuration and callbacks
 -   Fully typed
 -   Works in any runtime - Node.js, Bun, Deno, Cloudflare Workers
@@ -20,11 +22,9 @@ Authora is an open source library released under the MIT license, with the help 
 
 ## Resources
 
-**[Documentation](https://authora.com)**
+**[Documentation](https://rou-technology.gitbook.io/authora-docs/)**
 
-**[Examples](https://github.com/Authora-auth/examples)**
-
-**[Changelog](https://github.com/SOG-web/authenticate-repository/blob/main/packages/Authora/CHANGELOG.md)**
+**[Changelog](https://github.com/SOG-web/authenticate-repository/blob/main/packages/authora/CHANGELOG.md)**
 
 ## Installation
 

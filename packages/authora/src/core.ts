@@ -1,6 +1,6 @@
 import { TimeSpan, createDate, isWithinExpirationDate } from "oslo";
 import { CookieController } from "oslo/cookie";
-import { sign, verify, SignOptions, VerifyOptions } from "jsonwebtoken";
+import { sign, verify, SignOptions, VerifyOptions, JwtPayload } from "jsonwebtoken";
 
 import type { Cookie } from "oslo/cookie";
 import type { Adapter } from "./database.js";
@@ -29,21 +29,19 @@ export interface Session extends SessionAttributes {
 }
 
 export interface JWTOptions {
-	id: string;
-	signOptions: SignOptions;
-	verifyOptions: VerifyOptions;
-	user: Record<string, any>;
+	signOptions?: SignOptions;
+	verifyOptions?: VerifyOptions;
 }
 
 export interface CreatedToken {
 	token: string | null;
-	expiresAt: string | null;
+	expiresAt: string | number | undefined | null;
 	status: boolean;
 	error: any;
 }
 
 export interface VerifiedToken {
-	decoded: Record<string, any> | null;
+	decoded: string | JwtPayload | null;
 	status: boolean;
 	error: any;
 }
@@ -72,9 +70,9 @@ export class Authora<
 		databaseUserAttributes: RegisteredDatabaseUserAttributes
 	) => _UserAttributes;
 
-	public createJWTToken: (options?: SignOptions, user?: Record<string, any>) => CreatedToken;
+	public createJWTToken: (user: Record<string, any>, options?: SignOptions) => CreatedToken;
 
-	public verifyJWTToken: (token?: string, secret?: string) => VerifiedToken;
+	public verifyJWTToken: (token: string, secret?: string) => VerifiedToken;
 
 	public readonly sessionCookieName: string;
 
@@ -114,7 +112,7 @@ export class Authora<
 			return {};
 		};
 
-		this.createJWTToken = (options?: SignOptions, user?: Record<string, any>): CreatedToken => {
+		this.createJWTToken = (user: Record<string, any>, options?: SignOptions): CreatedToken => {
 			try {
 				if (this.useJWT && this.jwtSecret) {
 					if (options && user) {
@@ -127,7 +125,15 @@ export class Authora<
 						};
 					}
 					if (this.jwtOptions) {
-						const token = sign(this.jwtOptions.user, this.jwtSecret, this.jwtOptions.signOptions);
+						if (!this.jwtOptions.signOptions) {
+							return {
+								token: null,
+								expiresAt: null,
+								status: false,
+								error: "JWT options are not defined"
+							};
+						}
+						const token = sign(user, this.jwtSecret, this.jwtOptions.signOptions);
 						return {
 							token,
 							expiresAt: this.jwtOptions.signOptions.expiresIn,
@@ -152,21 +158,22 @@ export class Authora<
 			}
 		};
 
-		this.verifyJWTToken = (token?: string, secret?: string): VerifiedToken => {
+		this.verifyJWTToken = (token: string, secret?: string): VerifiedToken => {
 			try {
-				if (this.useJWT && this.jwtSecret) {
-					if (token && secret) {
-						const decoded = verify(token, secret);
-						return { decoded, status: true, error: null };
-					}
-					if (this.jwtOptions) {
-						const decoded = verify(
-							this.jwtOptions.id,
-							this.jwtSecret,
-							this.jwtOptions.verifyOptions
-						);
-						return { decoded, status: true, error: null };
-					}
+				if (!this.useJWT) {
+					return {
+						decoded: null,
+						status: false,
+						error: "JWT is not enabled"
+					};
+				}
+				if (secret) {
+					const decoded = verify(token, secret);
+					return { decoded, status: true, error: null };
+				}
+				if (this.jwtSecret) {
+					const decoded = verify(token, this.jwtSecret);
+					return { decoded, status: true, error: null };
 				}
 				return { decoded: null, status: false, error: "JWT is not enabled" };
 			} catch (error) {
@@ -187,6 +194,7 @@ export class Authora<
 			path: "/",
 			...options?.sessionCookie?.attributes
 		};
+
 		this.sessionCookieController = new CookieController(
 			this.sessionCookieName,
 			baseSessionCookieAttributes,
